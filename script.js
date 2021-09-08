@@ -22,18 +22,16 @@ function pullWeather(cityName){
 //Pull city name from text box and pull API Data
 function cityRequest() {
     var city = document.getElementById("cityName").value
-    pullWeather("" + city);
+    if (city.length < 1) return;
+    else pullWeather("" + city);
 
-    //add city to local storage
-    //create clickable button
   }
 //Current Weather
 function current( d ) {
     var RequestedDay = 0
-    var img = document.createElement("img")
     var iconNumber = d.list[RequestedDay].weather[0].icon
-    img.src= "http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
-    document.getElementById('0conditionIcon').appendChild(img)
+    document.getElementById("0conditionIcon").src="http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
+  
 	document.getElementById('0description').innerHTML = d.list[RequestedDay].weather[0].description;
 	document.getElementById('0temp').innerHTML = d.list[RequestedDay].main.temp + "°";
 	document.getElementById('0location').innerHTML = d.city.name;
@@ -45,10 +43,8 @@ function current( d ) {
 //5 Day Weather 
 function day1( d ) {
     var RequestedDay = 3
-    var img = document.createElement("img")
     var iconNumber = d.list[RequestedDay].weather[0].icon
-    img.src= "http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
-    document.getElementById('1conditionIcon').appendChild(img)
+    document.getElementById("1conditionIcon").src="http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
 	document.getElementById('1description').innerHTML = d.list[RequestedDay].weather[0].description;
 	document.getElementById('1temp').innerHTML = d.list[RequestedDay].main.temp + "°";
 	document.getElementById('1location').innerHTML = d.city.name;
@@ -59,10 +55,8 @@ function day1( d ) {
 }
 function day2( d ) {
     var RequestedDay = 11
-    var img = document.createElement("img")
     var iconNumber = d.list[RequestedDay].weather[0].icon
-    img.src= "http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
-    document.getElementById('2conditionIcon').appendChild(img)
+    document.getElementById("2conditionIcon").src="http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
 	document.getElementById('2description').innerHTML = d.list[RequestedDay].weather[0].description;
 	document.getElementById('2temp').innerHTML = d.list[RequestedDay].main.temp + "°";
 	document.getElementById('2location').innerHTML = d.city.name;
@@ -73,10 +67,8 @@ function day2( d ) {
 }
 function day3( d ) {
     var RequestedDay = 19
-    var img = document.createElement("img")
     var iconNumber = d.list[RequestedDay].weather[0].icon
-    img.src= "http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
-    document.getElementById('3conditionIcon').appendChild(img)
+    document.getElementById("3conditionIcon").src="http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
 	document.getElementById('3description').innerHTML = d.list[RequestedDay].weather[0].description;
 	document.getElementById('3temp').innerHTML = d.list[RequestedDay].main.temp + "°";
 	document.getElementById('3location').innerHTML = d.city.name;
@@ -87,10 +79,8 @@ function day3( d ) {
 }
 function day4( d ) {
     var RequestedDay = 27
-    var img = document.createElement("img")
     var iconNumber = d.list[RequestedDay].weather[0].icon
-    img.src= "http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
-    document.getElementById('4conditionIcon').appendChild(img)
+    document.getElementById("4conditionIcon").src="http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
 	document.getElementById('4description').innerHTML = d.list[RequestedDay].weather[0].description;
 	document.getElementById('4temp').innerHTML = d.list[RequestedDay].main.temp + "°";
 	document.getElementById('4location').innerHTML = d.city.name;
@@ -101,10 +91,8 @@ function day4( d ) {
 }
 function day5( d ) {
     var RequestedDay = 35
-    var img = document.createElement("img")
     var iconNumber = d.list[RequestedDay].weather[0].icon
-    img.src= "http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
-    document.getElementById('5conditionIcon').appendChild(img)
+    document.getElementById("5conditionIcon").src="http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
 	document.getElementById('5description').innerHTML = d.list[RequestedDay].weather[0].description;
 	document.getElementById('5temp').innerHTML = d.list[RequestedDay].main.temp + "°";
 	document.getElementById('5location').innerHTML = d.city.name;
@@ -115,3 +103,32 @@ function day5( d ) {
 }
 //Run Function when Search is Selected
 searchBTN.addEventListener("click",cityRequest)
+//Save to local data
+var history = document.querySelector('#history')
+
+searchBTN.addEventListener('click', 
+function (event) {
+    var history = document.querySelector('#history')
+    var cityName = document.getElementById("cityName").value
+    event.preventDefault();
+//don't add if no input
+if (cityName.length < 1) return;
+//add item to list
+    history.innerHTML += '<li>' + '<button type= "button" class="btn btn-primary prevCity" id="'+ cityName+'">' + cityName + '</button>' + '</li>';
+// Clear input
+	cityName = '';
+// Save the list to localStorage
+	localStorage.setItem('pastCities')
+// Check for saved storage items
+// If there are any saved items, update our list
+
+//Add Function for Past Requests
+function pastCityRequest() {
+    var city = btn.id
+    pullWeather("" + city);
+
+  }
+//Make Past Requests CLicklable
+var pastBTN = document.getElementsByClassName("prevCity");
+
+pastBTN.addEventListener("click",pastCityRequest)
