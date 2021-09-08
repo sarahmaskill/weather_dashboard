@@ -1,0 +1,19 @@
+:root { /* CSS HEX */
+--light-cyan: #c7eae4ff;
+--opal: #b6d9d4ff;
+--deep-space-sparkle: #3b6064ff;
+--spanish-pink: #fcbcb8ff;
+--pastel-pink: #efa7a7ff;
+--charcoal: #364958ff;
+}
+body {
+    background-color: var(--light-cyan);
+    color: var(--deep-space-sparkle)
+}
+header{
+    background: var(--spanish-pink);
+    text-align: center;
+}
+#search{
+    background: var(--opal);
+}
