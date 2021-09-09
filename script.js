@@ -31,7 +31,6 @@ function current( d ) {
     var RequestedDay = 0
     var iconNumber = d.list[RequestedDay].weather[0].icon
     document.getElementById("0conditionIcon").src="http://openweathermap.org/img/wn/" + iconNumber +"@2x.png"
-  
 	document.getElementById('0description').innerHTML = d.list[RequestedDay].weather[0].description;
 	document.getElementById('0temp').innerHTML = d.list[RequestedDay].main.temp + "°";
 	document.getElementById('0location').innerHTML = d.city.name;
@@ -104,10 +103,7 @@ function day5( d ) {
 //Run Function when Search is Selected
 searchBTN.addEventListener("click",cityRequest)
 //Save to local data
-var history = document.querySelector('#history')
-
-searchBTN.addEventListener('click', 
-function (event) {
+function history(event) {
     var history = document.querySelector('#history')
     var cityName = document.getElementById("cityName").value
     event.preventDefault();
@@ -118,17 +114,8 @@ if (cityName.length < 1) return;
 // Clear input
 	cityName = '';
 // Save the list to localStorage
-	localStorage.setItem('pastCities')
+	localStorage.setItem('pastCities',cityName)
 // Check for saved storage items
 // If there are any saved items, update our list
-
-//Add Function for Past Requests
-function pastCityRequest() {
-    var city = btn.id
-    pullWeather("" + city);
-
-  }
-//Make Past Requests CLicklable
-var pastBTN = document.getElementsByClassName("prevCity");
-
-pastBTN.addEventListener("click",pastCityRequest)
+}
+searchBTN.addEventListener("click",history)
